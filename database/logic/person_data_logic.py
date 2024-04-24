@@ -1,14 +1,14 @@
 import database.data.db_functions as db
-from database.data.models import Person
+from database.data.models import person
 
 
 class PersonDataLogic:
     @staticmethod
-    def get_all(connection) -> list[Person]:
+    def get_all(connection) -> list[person]:
         return db.get_all(connection)
 
     @staticmethod
-    def get_by_id(connection, person_id: int) -> Person:
+    def get_by_id(connection, person_id: int) -> person:
         people = PersonDataLogic.get_all(connection)
         for person in people:
             if person.id == person_id:
@@ -17,7 +17,7 @@ class PersonDataLogic:
         return None
 
     @staticmethod
-    def insert(connection, person: Person) -> bool:
+    def insert(connection, person: person) -> bool:
         if person is None:
             return False
         return db.insert(connection, person)
@@ -33,23 +33,23 @@ class PersonDataLogic:
         return db.delete_by_id(connection, person_id)
 
     @staticmethod
-    def get_by_login(connection, login: str) -> list[Person]:
+    def get_by_login(connection, login: str) -> list[person]:
         if len(login) == 0:
             return []
 
         people = db.get_all(connection)
 
-        if model[:3] == 'id:':
+        if password[:3] == 'id:':
             return list(
                 filter(
-                    lambda x: int(model[3]) == x.id,
-                    cars
+                    lambda x: int(password[3]) == x.id,
+                    people
                 )
             )
 
         return list(
             filter(
-                lambda x: model.lower() in x.model.lower(),
-                cars
+                lambda x: people.lower() in x.model.lower(),
+                people
             )
         )
