@@ -10,7 +10,7 @@ class CreateRegistration(tk.Toplevel):
         self.new_person = None
 
         self.title("Calendar")
-        self.geometry("300x200")
+        self.geometry("400x300")
 
         self.__login = tk.StringVar()
         self.__password = tk.StringVar()
@@ -58,11 +58,11 @@ class CreateRegistration(tk.Toplevel):
         entry_password2.pack(side=tk.RIGHT, fill=tk.X)
         # password end2
 
-        if self.__password == self.__password2:
-            self.submit_button = tk.Button(contanier, text="Submit")
-            self.submit_button['command'] = self.submit
-            self.submit_button.pack(fill=tk.BOTH)
-        else:
+        # if self.__password == self.__password2:
+        self.submit_button = tk.Button(contanier, text="Submit")
+        self.submit_button['command'] = self.submit
+        self.submit_button.pack(fill=tk.BOTH)
+        # else:
             
 
     def submit(self):

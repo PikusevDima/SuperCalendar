@@ -2,6 +2,7 @@ import tkinter as tk
 from database.data.models.person import Person
 from database.data import db_functions as db
 from gui.CreateWindow import CreateWindow
+from gui.Registration import CreateRegistration
 
 
 class MainWindow(tk.Tk):
@@ -10,6 +11,7 @@ class MainWindow(tk.Tk):
         self.connection = connection
 
         self.button_create = None
+        self.button_registration = None
         self.listbox = None
 
         self.title("My Application")
@@ -28,6 +30,10 @@ class MainWindow(tk.Tk):
         self.button_create = tk.Button(contanier, text="Create")
         self.button_create['command'] = self.__open_create_window
         self.button_create.pack()
+
+        self.button_registration = tk.Button(contanier, text="Registration")
+        self.button_registration['command'] = self.__open_create_registration()
+        self.button_registration.pack()
 
     def load(self):
         self.listbox.delete('0', 'end')
