@@ -1,7 +1,7 @@
 import tkinter as tk
 from database.data.models.person import Person
 from database.data import db_functions as db
-from gui.CreateWindow import CreateWindow
+from gui.entrance import CreateEntrance
 from gui.Registration import CreateRegistration
 
 
@@ -10,9 +10,9 @@ class MainWindow(tk.Tk):
         super().__init__(*args, **kwargs)
         self.connection = connection
 
-        self.button_create = None
         self.button_registration = None
-        self.listbox = None
+        self.button_entrance = None
+        # self.listbox = None
 
         self.title("My Application")
         self.geometry("800x500")
@@ -24,27 +24,36 @@ class MainWindow(tk.Tk):
         contanier = tk.Frame(self)
         contanier.pack(expand=True, fill=tk.BOTH, padx=10, pady=20)
 
-        self.listbox = tk.Listbox(contanier, selectmode=tk.SINGLE)
-        self.listbox.pack(expand=True, fill=tk.BOTH)
+        # self.listbox = tk.Listbox(contanier, selectmode=tk.SINGLE)
+        # self.listbox.pack(expand=True, fill=tk.BOTH)
 
-        self.button_create = tk.Button(contanier, text="Create")
-        self.button_create['command'] = self.__open_create_window
-        self.button_create.pack()
-
-        self.button_registration = tk.Button(contanier, text="Registration")
-        self.button_registration['command'] = self.__open_create_registration()
+        self.button_registration = tk.Button(contanier, text="Регистрация")
+        self.button_registration['command'] = self.__open_create_registration
         self.button_registration.pack()
 
+        self.button_entrance = tk.Button(contanier, text="Вход")
+        self.button_entrance['command'] = self.__open_create_entrance
+        self.button_entrance.pack()
+
     def load(self):
-        self.listbox.delete('0', 'end')
+        ...
+        # self.listbox.delete('0', 'end')
+        #
+        # people: list[Person] = db.select(self.connection)
+        #
+        # for person in self.__convert_to_str(people, ["id", "login", "password"]):
+        #     self.listbox.insert(tk.END, person)
 
-        people: list[Person] = db.select(self.connection)
+    def __open_create_registration(self):
+        create_window = CreateRegistration(self)
+        person = create_window.new_person
 
-        for person in self.__convert_to_str(people, ["id", "login", "password"]):
-            self.listbox.insert(tk.END, person)
+        db.insert(self.connection, person)
 
-    def __open_create_window(self):
-        create_window = CreateWindow(self)
+        self.load()
+
+    def __open_create_entrance(self):
+        create_window = CreateEntrance(self)
         person = create_window.new_person
 
         db.insert(self.connection, person)

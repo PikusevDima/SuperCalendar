@@ -51,10 +51,10 @@ class CreateRegistration(tk.Toplevel):
         contanier_password2 = tk.Frame(contanier)
         contanier_password2.pack(fill=tk.BOTH)
 
-        label_password2 = tk.Label(contanier_password, text="Repeat your password")
+        label_password2 = tk.Label(contanier_password2, text="Repeat your password")
         label_password2.pack(side=tk.LEFT)
 
-        entry_password2 = tk.Entry(contanier_password, textvariable=self.__password2)
+        entry_password2 = tk.Entry(contanier_password2, textvariable=self.__password2)
         entry_password2.pack(side=tk.RIGHT, fill=tk.X)
         # password end2
 
@@ -69,7 +69,7 @@ class CreateRegistration(tk.Toplevel):
         self.new_person = Person(
             None,
             self.__login.get(),
-            self.__password.get()
+            self.__password2.get()
         )
 
         self.close()
