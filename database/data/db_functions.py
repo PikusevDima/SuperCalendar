@@ -47,3 +47,19 @@ def get_by_id(connection: sqlite3.Connection, person_id: int) -> Person | None:
     except Exception as e:
         print(e)
         return None
+
+def get_all(connection: sqlite3.Connection) -> list[Person]:
+    try:
+        cursor = connection.cursor()
+        cursor.execute(sql_scripts.person_sql_script_select_all)
+        value: list[tuple] = cursor.fetchall()
+        people: list[Person] = []
+
+        for data in value:
+            person = Person.of(data)
+            people.append(person)
+
+        return people
+    except Exception as e:
+        print(e)
+        return []

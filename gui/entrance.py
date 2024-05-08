@@ -1,6 +1,6 @@
 import tkinter as tk
 from database.data.models.person import Person
-
+import database.data.db_functions as db
 
 class CreateEntrance(tk.Toplevel):
     def __init__(self, parent):
@@ -51,11 +51,9 @@ class CreateEntrance(tk.Toplevel):
         self.submit_button.pack(fill=tk.BOTH)
 
     def submit(self):
-        self.new_person = Person(
-            None,
-            self.__login.get(),
-            self.__password.get()
-        )
+        for i in db.get_all():
+
+
 
         self.close()
 

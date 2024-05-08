@@ -39,10 +39,10 @@ class PersonDataLogic:
 
         people = db.get_all(connection)
 
-        if password[:3] == 'id:':
+        if login[:3] == 'id:':
             return list(
                 filter(
-                    lambda x: int(password[3]) == x.id,
+                    lambda x: int(login[3]) == x.id,
                     people
                 )
             )

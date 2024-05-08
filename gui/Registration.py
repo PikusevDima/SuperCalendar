@@ -1,5 +1,6 @@
 import tkinter as tk
 from database.data.models.person import Person
+from tkinter import messagebox
 
 
 class CreateRegistration(tk.Toplevel):
@@ -58,21 +59,26 @@ class CreateRegistration(tk.Toplevel):
         entry_password2.pack(side=tk.RIGHT, fill=tk.X)
         # password end2
 
-        # if self.__password == self.__password2:
         self.submit_button = tk.Button(contanier, text="Submit")
         self.submit_button['command'] = self.submit
         self.submit_button.pack(fill=tk.BOTH)
-        # else:
+
             
 
     def submit(self):
-        self.new_person = Person(
-            None,
-            self.__login.get(),
-            self.__password2.get()
-        )
+        if self.__password2.get() == self.__password.get():
+            if len(self.__password.get()) >= 3:
+                self.new_person = Person(
+                    None,
+                    self.__login.get(),
+                    self.__password2.get()
+                )
+                self.close()
+            else:
+                messagebox.showerror("Ошибка", "Пароль должен быть больше 3 символов")
+        else:
+            messagebox.showerror("Ошибка", "Пароли не совпадают.")
 
-        self.close()
 
     def close(self):
         self.destroy()
