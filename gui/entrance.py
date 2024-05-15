@@ -1,6 +1,7 @@
 import tkinter as tk
 from database.data.models.person import Person
 import database.data.db_functions as db
+import sqlite3
 
 class CreateEntrance(tk.Toplevel):
     def __init__(self, parent):
@@ -51,7 +52,9 @@ class CreateEntrance(tk.Toplevel):
         self.submit_button.pack(fill=tk.BOTH)
 
     def submit(self):
-        for i in db.get_all():
+        logins = db.get_all()
+        for i in logins:
+            if self.__login.get() == i:
 
 
 

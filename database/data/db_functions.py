@@ -63,3 +63,10 @@ def get_all(connection: sqlite3.Connection) -> list[Person]:
     except Exception as e:
         print(e)
         return []
+
+def get_by_login(connection: sqlite3.Connection, person_login: str) -> Person | None:
+    try:
+        cursor = connection.cursor()
+        cursor.execute(sql_scripts.person_sql_script_insert, (person_login,))
+        value: list[tuple] = cursor.fetchall()
+        return Person.of(value[])
