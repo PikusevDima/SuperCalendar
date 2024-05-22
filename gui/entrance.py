@@ -4,9 +4,13 @@ import database.data.db_functions as db
 import sqlite3
 
 class CreateEntrance(tk.Toplevel):
-    def __init__(self, parent):
+    def __init__(self, parent, connection):
         super().__init__(parent)
 
+        self.__is_login = False
+        self.__login_person = None
+
+        self.connection = connection
         self.submit_button = None
         self.new_person = None
 
@@ -52,13 +56,18 @@ class CreateEntrance(tk.Toplevel):
         self.submit_button.pack(fill=tk.BOTH)
 
     def submit(self):
-        logins = db.get_all()
-        for i in logins:
-            if self.__login.get() == i:
+        persons = db.get_all(connection=self.connection)
 
-
+        for person in persons:
+            if self.__login.get() == person.login:
+                if self.__password.get() == person.password:
+                    self.__is_login = True
+                    self.__login_person = person
 
         self.close()
+
+    def is_login(self):
+        return self.__is_login
 
     def close(self):
         self.destroy()

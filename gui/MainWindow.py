@@ -20,6 +20,8 @@ class MainWindow(tk.Tk):
         self.create_widgets()
         self.load()
 
+        self.person = None
+
     def create_widgets(self):
         contanier = tk.Frame(self)
         contanier.pack(expand=True, fill=tk.BOTH, padx=10, pady=20)
@@ -53,12 +55,10 @@ class MainWindow(tk.Tk):
         self.load()
 
     def __open_create_entrance(self):
-        create_window = CreateEntrance(self)
-        person = create_window.new_person
-
-        db.insert(self.connection, person)
-
-        self.load()
+        create_window = CreateEntrance(self, self.connection)
+        if create_window.is_login():
+            # self.person = create_window.
+            self.load()
 
     def __pattern(self, values: list[str]) -> str:
         if len(values) == 3:

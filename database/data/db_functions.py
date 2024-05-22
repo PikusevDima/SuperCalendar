@@ -69,4 +69,7 @@ def get_by_login(connection: sqlite3.Connection, person_login: str) -> Person | 
         cursor = connection.cursor()
         cursor.execute(sql_scripts.person_sql_script_insert, (person_login,))
         value: list[tuple] = cursor.fetchall()
-        return Person.of(value[])
+        return Person.of(value[0])
+    except Exception as e:
+        print(e)
+        return None
