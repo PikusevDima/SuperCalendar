@@ -1,7 +1,7 @@
 from gui.MainWindow import MainWindow as Wn
 import sqlite3
 
-connection = sqlite3.connect('database.db')
+connection = sqlite3.connect('database_all.db')
 cursos = connection.cursor()
 #
 # cursos.execute(sql_scripts.person_sql_script_create_table)

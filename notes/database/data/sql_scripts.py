@@ -3,7 +3,8 @@ note_sql_script_create_table = """
         id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
         text TEXT NOT NULL,
-        person_id INTEGER NOT NULL
+        person_id INTEGER,
+        FOREIGN KEY (person_id)  REFERENCES Person (id)
     )
 """
 
