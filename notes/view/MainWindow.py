@@ -1,12 +1,15 @@
 import tkinter as tk
 from idlelib.tooltip import Hovertip
 from tkinter import messagebox
-from database.data.notes.Note import Note
-from view.CreateWindow import CreateWindow
-from view.MyComponents.NoteView import NoteView
+from database.data.models.Note import Note
+from notes.view.CreateWindow import CreateWindow
+from notes.view.MyComponents.NoteView import NoteView
 
 from database.logic.note_data_logic import NoteDataLogic
 
+from gui.entrance import CreateEntrance
+from gui.Registration import CreateRegistration
+from database.data import db_functions_person as db
 
 class MainWindow(tk.Tk):
     def __init__(self, connection, *args, **kwargs):
@@ -17,6 +20,9 @@ class MainWindow(tk.Tk):
         self.listbox = None
         self.search = None
         self.search_button = None
+        self.person = None
+        self.button_registration = None
+        self.button_entrance = None
 
         self.search_value = tk.StringVar(value="")
 
@@ -28,13 +34,8 @@ class MainWindow(tk.Tk):
         self.load()
 
     def create_widgets(self):
-        #backgroung = tk.PhotoImage(file="/Users/andrejbazunov/Desktop/notes/view/static/bg.png")
-
         contanier = tk.Frame(self)
         contanier.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
-
-        label = tk.Label(contanier)
-        label.place(x=0, y=0, relwidth=1, relheight=1)
 
         search_container = tk.Frame(contanier)
         search_container.pack(fill=tk.BOTH)
@@ -53,6 +54,15 @@ class MainWindow(tk.Tk):
         self.button_create = tk.Button(contanier, text="Create")
         self.button_create['command'] = self.__open_create_window
         self.button_create.pack()
+
+        self.button_registration = tk.Button(contanier, text="Регистрация")
+        self.button_registration['command'] = self.__open_create_registration
+        self.button_registration.pack()
+
+        self.button_entrance = tk.Button(contanier, text="Вход")
+        self.button_entrance['command'] = self.__open_create_entrance
+        self.button_entrance.pack()
+
 
     def clear(self):
         for widget in self.listbox.winfo_children():
@@ -89,9 +99,23 @@ class MainWindow(tk.Tk):
             self.load()
 
     def __open_create_window(self):
-        create_window = CreateWindow(self)
+        create_window = CreateWindow(self, self.connection)
         note = create_window.new_note
 
         NoteDataLogic.insert(self.connection, note)
 
         self.load()
+
+    def __open_create_registration(self):
+        create_window = CreateRegistration(self)
+        person = create_window.new_person
+
+        db.insert(self.connection, person)
+
+        self.load()
+
+    def __open_create_entrance(self):
+        create_window = CreateEntrance(self, self.connection)
+        if create_window.is_login():
+            self.person = create_window.login_person
+            self.load()

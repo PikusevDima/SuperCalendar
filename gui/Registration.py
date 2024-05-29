@@ -1,5 +1,5 @@
 import tkinter as tk
-from database.data.models.person import Person
+from database.data.models.Person import Person
 from tkinter import messagebox
 
 
@@ -67,7 +67,7 @@ class CreateRegistration(tk.Toplevel):
 
     def submit(self):
         if self.__password2.get() == self.__password.get():
-            if len(self.__password.get()) >= 3:
+            if len(self.__password.get()) > 3:
                 self.new_person = Person(
                     None,
                     self.__login.get(),

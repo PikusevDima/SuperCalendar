@@ -1,20 +1,22 @@
 import tkinter as tk
-from database.data.notes.Note import Note
+from database.data.models.Note import Note
+from gui.entrance import CreateEntrance
 
 
 class CreateWindow(tk.Toplevel):
-    def __init__(self, parent):
+    def __init__(self, parent, connection):
         super().__init__(parent)
 
         self.submit_button = None
         self.new_note = None
+        self.connection = connection
 
         self.title("My Application")
         self.geometry("300x150")
 
         self.__name = tk.StringVar()
         self.__text = tk.StringVar()
-        self.__person_id = tk.StringVar(value="0")
+        self.__person_id = None
 
         self.create_widgets()
         self.load()
@@ -47,16 +49,11 @@ class CreateWindow(tk.Toplevel):
         entry_text.pack(side=tk.RIGHT, fill=tk.X)
         # text end
 
-        # person_id
-        contanier_person_id = tk.Frame(contanier)
-        contanier_person_id.pack(fill=tk.BOTH)
+        window = CreateEntrance(self, self.connection)
+        self.__person_id = window.login_person
 
-        label_person_id = tk.Label(contanier_person_id, text="person_id")
-        label_person_id.pack(side=tk.LEFT)
 
-        entry_person_id = tk.Entry(contanier_person_id, textvariable=self.__person_id)
-        entry_person_id.pack(side=tk.RIGHT, fill=tk.X)
-        # person_id
+
 
         self.submit_button = tk.Button(contanier, text="Submit")
         self.submit_button['command'] = self.submit
@@ -71,7 +68,7 @@ class CreateWindow(tk.Toplevel):
                 None,
                 self.__name.get(),
                 self.__text.get(),
-                int(self.__person_id.get())
+                self.__person_id
             )
             self.close()
         except Exception as e:

@@ -1,6 +1,6 @@
 import tkinter as tk
-from database.data.models.person import Person
-from database.data import db_functions as db
+from database.data.models.Person import Person
+from database.data import db_functions_person as db
 from gui.entrance import CreateEntrance
 from gui.Registration import CreateRegistration
 
@@ -57,7 +57,7 @@ class MainWindow(tk.Tk):
     def __open_create_entrance(self):
         create_window = CreateEntrance(self, self.connection)
         if create_window.is_login():
-            # self.person = create_window.
+            self.person = create_window.login_person()
             self.load()
 
     def __pattern(self, values: list[str]) -> str:

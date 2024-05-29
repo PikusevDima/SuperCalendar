@@ -1,5 +1,5 @@
 import tkinter as tk
-from database.data.notes.Note import Note
+from database.data.models.Note import Note
 
 
 class NoteView(tk.Frame):
@@ -9,7 +9,7 @@ class NoteView(tk.Frame):
         super().__init__(parent,
                          borderwidth=1,
                          highlightthickness=1,
-                         highlightbackground="red",
+                         highlightbackground="green",
                          padx=10,
                          pady=10)
 
@@ -32,8 +32,6 @@ class NoteView(tk.Frame):
         self.label_name.pack(fill=tk.BOTH, expand=True)
         self.label_text = tk.Label(self, text=str(self.__note.text))
         self.label_text.pack()
-        self.label_person_id = tk.Label(self, text=str(self.__note.person_id))
-        self.label_person_id.pack()
 
         self.button = tk.Button(self, text="Delete")
         self.button['command'] = self.__delete

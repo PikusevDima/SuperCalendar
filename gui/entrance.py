@@ -1,7 +1,10 @@
 import tkinter as tk
-from database.data.models.person import Person
-import database.data.db_functions as db
-import sqlite3
+from database.data.models.Person import Person
+import database.data.db_functions_person as db
+from tkinter import messagebox
+
+
+
 
 class CreateEntrance(tk.Toplevel):
     def __init__(self, parent, connection):
@@ -12,7 +15,6 @@ class CreateEntrance(tk.Toplevel):
 
         self.connection = connection
         self.submit_button = None
-        self.new_person = None
 
         self.title("My Application")
         self.geometry("300x150")
@@ -63,11 +65,16 @@ class CreateEntrance(tk.Toplevel):
                 if self.__password.get() == person.password:
                     self.__is_login = True
                     self.__login_person = person
+                    self.close()
+                else:
+                    messagebox.showerror("Ошибка", "Неверный пароль")
 
-        self.close()
 
     def is_login(self):
         return self.__is_login
+
+    def login_person(self):
+        return self.__login_person
 
     def close(self):
         self.destroy()

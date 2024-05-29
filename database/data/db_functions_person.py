@@ -1,6 +1,6 @@
 import sqlite3
 from database.data import sql_scripts
-from database.data.models.person import Person
+from database.data.models.Person import Person
 
 
 def select(connection: sqlite3.Connection) -> list[{Person}]:

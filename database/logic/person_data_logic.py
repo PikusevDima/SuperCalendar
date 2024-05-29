@@ -1,14 +1,14 @@
-import database.data.db_functions as db
-from database.data.models import person
+import database.data.db_functions_person as db
+from database.data.models import Person
 
 
 class PersonDataLogic:
     @staticmethod
-    def get_all(connection) -> list[person]:
+    def get_all(connection) -> list[Person]:
         return db.get_all(connection)
 
     @staticmethod
-    def get_by_id(connection, person_id: int) -> person:
+    def get_by_id(connection, person_id: int) -> Person:
         people = PersonDataLogic.get_all(connection)
         for person in people:
             if person.id == person_id:
@@ -17,7 +17,7 @@ class PersonDataLogic:
         return None
 
     @staticmethod
-    def insert(connection, person: person) -> bool:
+    def insert(connection, person: Person) -> bool:
         if person is None:
             return False
         return db.insert(connection, person)
@@ -33,7 +33,7 @@ class PersonDataLogic:
         return db.delete_by_id(connection, person_id)
 
     @staticmethod
-    def get_by_login(connection, login: str) -> list[person]:
+    def get_by_login(connection, login: str) -> list[Person]:
         if len(login) == 0:
             return []
 

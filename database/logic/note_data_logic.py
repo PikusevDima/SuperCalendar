@@ -1,5 +1,5 @@
-import database.data.db_functions as db
-from database.data.notes import Note
+import database.data.db_functions_person as db
+from database.data.models import Note
 
 
 class NoteDataLogic:
@@ -18,7 +18,7 @@ class NoteDataLogic:
 
     @staticmethod
     def insert(connection, note: Note) -> bool:
-        if note.person_id < 0:
+        if note.person_id <= 0:
             return False
 
         if note is None:

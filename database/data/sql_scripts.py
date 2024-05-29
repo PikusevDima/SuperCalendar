@@ -26,3 +26,4 @@ person_sql_script_delete_all = """
 person_sql_script_select_by_login = """
     SELECT * FROM Person WHERE login = ?
 """
+
